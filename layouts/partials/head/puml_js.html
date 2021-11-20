@@ -9,7 +9,7 @@
             function (code) {
                 let image = document.createElement("IMG");
                 image.loading = 'lazy'; // Lazy loading
-                image.src = 'http://www.plantuml.com/plantuml/svg/~1' + plantumlEncoder.encode(code.innerText) +'#center';
+                image.src = 'https://www.plantuml.com/plantuml/svg/~1' + plantumlEncoder.encode(code.innerText) +'#center';
                 code.parentNode.parentNode.insertBefore(image, code.parentNode);
                 code.style.display = 'none';
             });
