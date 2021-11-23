@@ -1,18 +1,24 @@
 {{- if eq 1 (findRE "language-(plantuml|puml)" $.Content 1 | len) -}}
 <script src="https://cdn.jsdelivr.net/gh/jmnote/plantuml-encoder@1.2.4/dist/plantuml-encoder.min.js"
-    integrity="sha256-Qsk2KRBCN5qVZX7B+8+2IvQl1Aqc723qV1tBCQaVoqo=" crossorigin="anonymous"></script>
+  integrity="sha256-Qsk2KRBCN5qVZX7B+8+2IvQl1Aqc723qV1tBCQaVoqo=" crossorigin="anonymous"></script>
 <script>
-    window.onload= function () {
-        let es1 = document.querySelectorAll("[class^=language-plantuml]");
-        let es2 = document.querySelectorAll("[class^=language-puml]");
-        Array.prototype.forEach.call([...es1, ...es2],
-            function (code) {
-                let image = document.createElement("IMG");
-                image.loading = 'lazy'; // Lazy loading
-                image.src = 'https://www.plantuml.com/plantuml/svg/~1' + plantumlEncoder.encode(code.innerText) +'#center';
-                code.parentNode.parentNode.insertBefore(image, code.parentNode);
-                code.style.display = 'none';
-            });
+  (function () {
+    function initPuml() {
+      let es1 = document.querySelectorAll("[class^=language-plantuml]");
+      let es2 = document.querySelectorAll("[class^=language-puml]");
+      Array.prototype.forEach.call([...es1, ...es2],
+        function (code) {
+          let image = document.createElement("IMG");
+          image.loading = 'lazy'; // Lazy loading
+          image.src = 'https://www.plantuml.com/plantuml/svg/~1' + plantumlEncoder.encode(code.innerText) +
+            '#center';
+          code.parentNode.parentNode.insertBefore(image, code.parentNode);
+          code.style.display = 'none';
+        });
     };
+    if (document.addEventListener) {
+      document.addEventListener("DOMContentLoaded", initPuml, false);
+    }
+  })()
 </script>
 {{- end -}}
